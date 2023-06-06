@@ -6,6 +6,7 @@ import { FormDeal } from './pages/form.page'
 import { Deals} from './pages/deal.page'
 import { rand4 } from '../helpers';
 import {Navigation} from './components/navigation'
+import { Provider } from './context';
 
 function App() {
   const [dealList, setDeals] = useState([]);
@@ -41,13 +42,20 @@ function App() {
 
   return (
     <>
+    <Provider value={{
+      deals: dealList,
+      onAddDeal,
+      onEdit,
+      onRemove,
+    }}>
   <BrowserRouter>
   <Navigation />
     <Routes>
-      <Route exact path="/" element={<Deals deals={dealList} onEdit={onEdit} onRemove={onRemove}/>}></Route>
-      <Route exact path="/form/:id?" element={<FormDeal onAddDeal={onAddDeal} onEdit={onEdit} deals={dealList}/>}></Route>
+      <Route exact path="/" element={<Deals />}></Route>
+      <Route exact path="/form/:id?" element={<FormDeal />}></Route>
     </Routes>
   </BrowserRouter>
+  </Provider>
     </>
       
   )

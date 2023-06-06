@@ -1,14 +1,16 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { FullContainer } from "../components/containers";
 import {Form, TextArea} from "../components/forms";
+import { TodoContext } from "../context";
 
-export const FormDeal = ({onAddDeal, deals, onEdit}) => {
+export const FormDeal = () => {
     const { id = ''} = useParams();
     const navigate = useNavigate();
     const [text, setText] = useState();
+    const {onAddDeal, deals, onEdit} = useContext(TodoContext);
     useEffect(() => {
         try {
           if (id) {

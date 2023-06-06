@@ -1,11 +1,10 @@
-/* eslint-disable react/prop-types */
-import { useContext } from "react";
 import { FullContainer, List } from "../components/containers";
 import {DealCard} from "../components/dealCard";
-import { TodoContext } from "../context";
+import { useSelector } from "react-redux";
+
 
 export const Deals = () => {
-    const {deals} = useContext(TodoContext);
+    const deals = useSelector((state) => state.todoStore);
     return (
         <FullContainer>
             <List>

@@ -1,16 +1,16 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { FullContainer } from "../components/containers";
 import {Form, TextArea} from "../components/forms";
-import { TodoContext } from "../context";
+import { useSelector, useDispatch } from "react-redux";
+import { onAdd, onEdit } from "../store/actions";
 
 export const FormDeal = () => {
     const { id = ''} = useParams();
     const navigate = useNavigate();
     const [text, setText] = useState();
-    const {onAddDeal, deals, onEdit} = useContext(TodoContext);
+    const deals = useSelector((state) => state.todoStore);
+    const dispatch = useDispatch();
     useEffect(() => {
         try {
           if (id) {
@@ -28,12 +28,12 @@ export const FormDeal = () => {
     const onSave = (e) => {
         e.preventDefault();
         console.log(text);
-        onAddDeal(text);
+        dispatch(onAdd(text))
         navigate('/');
     };
 
     const onUpdate = () => {
-       onEdit({id, text});
+      dispatch(onEdit({id, text}))
        navigate('/');
     };
     const onInput = (e) => {
